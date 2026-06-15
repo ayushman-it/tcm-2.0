@@ -390,34 +390,15 @@
    CARD HOVER EFFECTS – EVENTS & COURSES
    ======================================== */
 
-/* Event card – subtle left accent on hover */
+/* Event card – clean hover, NO black border accent */
 .event-card {
     position: relative;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease !important;
-}
-
-.event-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    background: #111;
-    border-radius: 24px 0 0 24px;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform .3s ease;
+    transition: transform .25s ease, box-shadow .25s ease !important;
 }
 
 .event-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 16px 40px rgba(0,0,0,.08);
-    border-color: #d0d0d0 !important;
-}
-
-.event-card:hover::before {
-    transform: scaleY(1);
 }
 
 /* Course card – shimmer on hover */
@@ -452,25 +433,7 @@
    HEADER – NAV LINK UNDERLINE EFFECT
    ======================================== */
 
-.nav-link {
-    position: relative;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #111;
-    border-radius: 1px;
-    transition: width .25s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
+/* removed – no underline animation on nav links */
 
 /* ========================================
    SECTION BADGE (used in why, faq etc.)

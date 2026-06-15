@@ -17,18 +17,37 @@ body{
 .header{
     background:#fff;
     border-bottom:1px solid #f1f1f1;
-    padding:20px 0;
+    padding:14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,.95);
 }
 
 .logo{
-    font-size:22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size:20px;
     font-weight:800;
     color:#111;
     text-decoration:none;
 }
 
-.logo i{
-    margin-right:8px;
+/* Text logo */
+.logo-text {
+    font-size: 22px;
+    font-weight: 900;
+    color: #111;
+    letter-spacing: -0.5px;
+    line-height: 1;
+}
+
+.logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
 }
 
 .nav-link{
