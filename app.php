@@ -18,8 +18,9 @@ use TCM\Core\View;
 
 require __DIR__ . '/src/bootstrap.php';
 
-// CSRF protection for state-changing web requests (the JSON API is exempt).
-if (!str_starts_with(Request::path(), '/api')) {
+// CSRF protection for state-changing web requests.
+// JSON/AJAX requests from the frontend modal are exempt (same-origin fetch).
+if (!str_starts_with(Request::path(), '/api') && !Request::isJson()) {
     Csrf::check();
 }
 
@@ -39,6 +40,10 @@ $router->post('/auth/otp/request', ['TCM\Controllers\AuthController', 'otpReques
 $router->post('/auth/otp/verify', ['TCM\Controllers\AuthController', 'otpVerify']);
 $router->post('/auth/password/request', ['TCM\Controllers\AuthController', 'passwordOtpRequest']);
 $router->post('/auth/password/reset', ['TCM\Controllers\AuthController', 'passwordReset']);
+
+// Google OAuth
+$router->get('/auth/google', ['TCM\Controllers\GoogleAuthController', 'redirect']);
+$router->get('/auth/google/callback', ['TCM\Controllers\GoogleAuthController', 'callback']);
 
 // --------------------------------------------------------------------- //
 // Admin dashboard

@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="<?= base_url('/assets/dashboard.css') ?>">
 </head>
 <body>
-    <div class="tcm-content" style="max-width:1000px;margin:0 auto;">
-        <?= $content ?? '' ?>
-    </div>
+<?= $content ?? '' ?>
 </body>
 </html>

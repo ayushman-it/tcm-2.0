@@ -365,6 +365,249 @@
         document.querySelectorAll("[data-tcm-list]").forEach(hydrateOne);
     }
 
+    /* ================= DETAIL PAGE HYDRATION =========================== */
+    function qs(sel, ctx) { return (ctx || document).querySelector(sel); }
+    function qsa(sel, ctx) { return (ctx || document).querySelectorAll(sel); }
+
+    function setTxt(sel, val, ctx) {
+        var el = qs(sel, ctx);
+        if (el) el.textContent = val;
+    }
+
+    /* ---------- course-details.html ---------- */
+    function hydrateCourseDetail() {
+        var params = new URLSearchParams(window.location.search);
+        var slug = params.get("course");
+        if (!slug) return;
+
+        getJSON(api("/api/courses/" + encodeURIComponent(slug))).then(function (res) {
+            if (!res || !res.success || !res.data) return;
+            var c = res.data;
+
+            // document title
+            document.title = (c.title || "Course") + " \u2013 The Code Munk";
+
+            // breadcrumb
+            var bc = qs(".cd-breadcrumb span:last-child");
+            if (bc) bc.textContent = c.title || "";
+
+            // hero h1
+            var h1 = qs(".cd-hero-content h1");
+            if (h1) h1.textContent = c.title || "";
+
+            // hero desc
+            setTxt(".cd-hero-desc", c.description || "");
+
+            // price block
+            setTxt(".cd-price", c.price != null ? money(c.price) : "");
+            setTxt(".cd-price-original", c.original_price ? money(c.original_price) : "");
+            var disc = c.discount_percent != null
+                ? c.discount_percent
+                : (c.original_price && c.price && c.original_price > 0
+                    ? Math.round((1 - c.price / c.original_price) * 100)
+                    : 0);
+            setTxt(".cd-discount-badge", disc ? disc + "% Off" : "");
+
+            // seats bar
+            var total = parseInt(c.total_seats, 10) || 0;
+            var filled = parseInt(c.seats_filled, 10) || 0;
+            var left = Math.max(0, total - filled);
+            var pct = total > 0 ? ((filled / total) * 100).toFixed(0) : 0;
+            var fill = qs(".cd-seats-fill");
+            if (fill) fill.style.width = pct + "%";
+            var seatP = qs(".cd-seats p");
+            if (seatP) seatP.innerHTML = "<strong>" + left + " seats left</strong> out of " + total;
+
+            // stats row — rating, students_count, duration, "Live"
+            var stats = qsa(".cd-stat strong");
+            if (stats[0]) stats[0].textContent = c.rating != null ? c.rating : "—";
+            if (stats[1]) stats[1].textContent = c.students_count != null ? Number(c.students_count).toLocaleString("en-IN") + "+" : "—";
+            if (stats[2]) stats[2].textContent = c.duration || "—";
+            if (stats[3]) stats[3].textContent = "Live";
+
+            // meta row divs
+            var metas = qsa(".cd-meta-row div");
+            if (metas[0]) metas[0].innerHTML = '<i class="bi bi-calendar-event"></i> Starts ' + (c.starts_at ? fmtDate(c.starts_at.split(" ")[0]) : "TBA");
+            if (metas[1]) metas[1].innerHTML = '<i class="bi bi-clock"></i> ' + (c.schedule || "Schedule TBA");
+            if (metas[2]) metas[2].innerHTML = '<i class="bi bi-translate"></i> ' + (c.language || "English");
+            if (metas[3]) metas[3].innerHTML = '<i class="bi bi-patch-check-fill"></i> ' + ((parseInt(c.certificate, 10)) ? "Certificate Included" : "No Certificate");
+
+            // category badge
+            var badge = qs(".cd-badge-tag");
+            if (badge && c.category_name) badge.innerHTML = '<i class="bi bi-mortarboard-fill"></i> ' + esc(c.category_name);
+
+            // bestseller badge
+            var pop = qs(".cd-badge-popular");
+            if (pop) pop.style.display = (parseInt(c.is_bestseller, 10) === 1) ? "" : "none";
+
+            // enroll buttons
+            var enrollUrl = (c.slug ? BASE + "/student/courses/" + encodeURIComponent(c.slug) : "#");
+            qsa(".cd-enroll-btn").forEach(function (btn) { btn.setAttribute("href", enrollUrl); });
+            // also wire quick-action "Enroll" link
+            qsa(".action-btn").forEach(function (btn) {
+                if ((btn.textContent || "").trim().toLowerCase() === "enroll") {
+                    btn.setAttribute("href", enrollUrl);
+                }
+            });
+
+            // curriculum
+            if (Array.isArray(c.curriculum) && c.curriculum.length) {
+                var wrapper = qs(".cd-curriculum-wrapper");
+                if (wrapper) {
+                    var html = c.curriculum.map(function (mod, idx) {
+                        var num = String(idx + 1).padStart(2, "0");
+                        var lessons = Array.isArray(mod.lessons) ? mod.lessons : [];
+                        var lessonHtml = lessons.map(function (l) {
+                            var isProject = (l.type === "project");
+                            return '<div class="cd-lesson' + (isProject ? " cd-project-lesson" : "") + '">' +
+                                '<i class="bi ' + (isProject ? "bi-folder2-open" : "bi-play-circle") + '"></i> ' +
+                                '<span>' + esc(l.title) + '</span>' +
+                                '<small' + (isProject ? ' class="project-tag"' : "") + '>' + esc(l.type || "Live") + '</small>' +
+                                '</div>';
+                        }).join("");
+                        return '<details class="cd-module"' + (idx === 0 ? " open" : "") + '>' +
+                            '<summary class="cd-module-header">' +
+                            '<div class="cd-module-left">' +
+                            '<div class="cd-module-num">' + num + '</div>' +
+                            '<div><h4>' + esc(mod.title) + '</h4>' +
+                            '<span>' + lessons.length + ' sessions</span>' +
+                            '</div></div>' +
+                            '<i class="bi bi-chevron-down cd-module-arrow"></i>' +
+                            '</summary>' +
+                            '<div class="cd-module-body">' + lessonHtml + '</div>' +
+                            '</details>';
+                    }).join("");
+                    wrapper.innerHTML = html;
+                }
+            }
+        }).catch(function () {});
+    }
+
+    /* ---------- event-details.html ---------- */
+    function hydrateEventDetail() {
+        var params = new URLSearchParams(window.location.search);
+        var slug = params.get("event");
+        if (!slug) return;
+
+        getJSON(api("/api/events")).then(function (res) {
+            if (!res || !res.success || !Array.isArray(res.data)) return;
+            var ev = null;
+            for (var i = 0; i < res.data.length; i++) {
+                if (res.data[i].slug === slug) { ev = res.data[i]; break; }
+            }
+            if (!ev) return;
+
+            // document title
+            document.title = (ev.title || "Event") + " \u2013 The Code Munk";
+
+            // hero content
+            var heroContent = qs(".hero-content");
+            if (heroContent) {
+                var heroH1 = qs("h1", heroContent);
+                if (heroH1) heroH1.textContent = ev.title || "";
+                var heroP = qs("p", heroContent);
+                if (heroP) heroP.textContent = ev.description || "";
+            }
+
+            // hero meta divs
+            var metaDivs = qsa(".hero-meta div");
+            if (metaDivs[0]) metaDivs[0].innerHTML = '<i class="bi bi-calendar-event"></i> ' + fmtDate(ev.event_date);
+            if (metaDivs[1]) metaDivs[1].innerHTML = '<i class="bi bi-clock"></i> ' + (ev.event_time ? fmtTime(ev.event_time) : "TBA");
+            if (metaDivs[2]) metaDivs[2].innerHTML = '<i class="bi bi-laptop"></i> ' + (ev.mode ? ev.mode.charAt(0).toUpperCase() + ev.mode.slice(1) : "Online");
+
+            // availability card
+            var total = parseInt(ev.total_seats, 10) || 16;
+            var filled = parseInt(ev.seats_filled, 10) || 0;
+            var left = Math.max(0, total - filled);
+            var pct = total > 0 ? Math.round((filled / total) * 100) : 0;
+
+            var avH3 = qs(".availability-card h3");
+            if (avH3) avH3.textContent = pct + "% Filled";
+
+            // rebuild dots grid
+            var grid = qs(".availability-grid");
+            if (grid) {
+                var gridDots = "";
+                var dotTotal = Math.min(total, 32); // cap visual at 32
+                var dotFilled = Math.round((filled / total) * dotTotal);
+                for (var d = 0; d < dotTotal; d++) {
+                    gridDots += '<span class="dot' + (d < dotFilled ? " filled" : "") + '"></span>';
+                }
+                grid.innerHTML = gridDots;
+            }
+
+            // stats strongs
+            var avStats = qsa(".availability-stats strong");
+            if (avStats[0]) avStats[0].textContent = filled;
+            if (avStats[1]) avStats[1].textContent = left;
+
+            // status badge
+            var isFull = left <= 0 && ev.status !== "past";
+            var statusTxt = ev.status === "past"
+                ? "Event Completed"
+                : (isFull ? "Event Full" : "Registration Open");
+            var statusBadge = qs(".status-badge");
+            if (statusBadge) {
+                statusBadge.textContent = statusTxt;
+                statusBadge.className = "status-badge" +
+                    (ev.status === "past" ? " past" : (isFull ? " full" : ""));
+            }
+
+            // register buttons — all .btn-dark links
+            qsa(".btn-dark").forEach(function (btn) {
+                if (ev.status === "past") {
+                    btn.textContent = "Event Ended";
+                    btn.removeAttribute("href");
+                    btn.style.opacity = "0.5";
+                    btn.style.cursor = "default";
+                } else if (isFull) {
+                    btn.textContent = "Event Full";
+                    btn.removeAttribute("href");
+                    btn.style.opacity = "0.5";
+                    btn.style.cursor = "default";
+                } else if (ev.type === "free") {
+                    btn.textContent = "Register Free";
+                    btn.setAttribute("href", BASE + "/student/events/" + encodeURIComponent(ev.id) + "/join");
+                } else {
+                    var waMsg = "Hi! I want to register for the event: " + (ev.title || slug);
+                    btn.textContent = "Register \u2013 " + money(ev.price || 0);
+                    btn.setAttribute("href", waLink(waMsg));
+                    btn.setAttribute("target", "_blank");
+                }
+            });
+
+            // also wire action-card "Register" button
+            qsa(".action-btn").forEach(function (btn) {
+                var txt = (btn.textContent || "").trim().toLowerCase();
+                if (txt === "register") {
+                    if (ev.status === "past" || isFull) {
+                        btn.style.opacity = "0.5";
+                        btn.removeAttribute("href");
+                    } else if (ev.type === "free") {
+                        btn.setAttribute("href", BASE + "/student/events/" + encodeURIComponent(ev.id) + "/join");
+                    } else {
+                        btn.setAttribute("href", waLink("Hi! I want to register for: " + (ev.title || slug)));
+                        btn.setAttribute("target", "_blank");
+                    }
+                }
+            });
+        }).catch(function () {});
+    }
+
+    function hydrateDetailPage() {
+        // Detect which detail page we're on by URL path or page elements
+        var path = window.location.pathname;
+        var isCoursePage = path.indexOf("course-details") !== -1
+            || document.querySelector("[data-course-detail]") !== null
+            || (new URLSearchParams(window.location.search)).get("course") !== null;
+        var isEventPage = path.indexOf("event-details") !== -1
+            || document.querySelector("[data-event-detail]") !== null
+            || (new URLSearchParams(window.location.search)).get("event") !== null;
+
+        if (isCoursePage && !isEventPage) hydrateCourseDetail();
+        if (isEventPage && !isCoursePage) hydrateEventDetail();
+    }
+
     /* ================= BOOT ============================================ */
     ready(function () {
         wireContactForm();
@@ -377,6 +620,7 @@
                 applyAuthState();
                 wireWhatsApp();
                 hydrateLists();
+                hydrateDetailPage();
             });
     });
 })();

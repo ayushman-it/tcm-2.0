@@ -8,13 +8,14 @@ use TCM\Core\Auth;
 use TCM\Core\Controller;
 use TCM\Core\Database;
 use TCM\Core\Request;
+use TCM\Core\Upload;
 use TCM\Models\Order;
 
 final class ProfileController extends Controller
 {
     public function edit(): void
     {
-        $user = Auth::require('student');
+        $user    = Auth::require('student');
         $profile = Database::first('SELECT * FROM student_profiles WHERE user_id = ?', [$user['id']]) ?? [];
         $this->view('student/profile', [
             'title'   => 'My Profile',
@@ -34,10 +35,33 @@ final class ProfileController extends Controller
             'website_url'  => 'url',
         ], '/student/profile');
 
-        Database::update('users', [
+        $userUpdate = [
             'name'  => Request::string('name'),
             'phone' => Request::string('phone'),
-        ], ['id' => $user['id']]);
+        ];
+
+        // Avatar upload
+        if (Upload::present($_FILES['avatar'] ?? null)) {
+            try {
+                $uploadDir = config('uploads.path') . '/avatars';
+                $filename  = Upload::store(
+                    $_FILES['avatar'],
+                    $uploadDir,
+                    ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+                    2 * 1024 * 1024
+                );
+                if (!empty($user['avatar'])) {
+                    $old = config('uploads.path') . '/' . $user['avatar'];
+                    if (is_file($old)) @unlink($old);
+                }
+                $userUpdate['avatar'] = 'avatars/' . $filename;
+            } catch (\RuntimeException $e) {
+                flash('error', $e->getMessage());
+                redirect('/student/profile');
+            }
+        }
+
+        Database::update('users', $userUpdate, ['id' => $user['id']]);
 
         Database::update('student_profiles', [
             'headline'         => Request::string('headline'),

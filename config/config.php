@@ -104,4 +104,14 @@ return $GLOBALS['__TCM_CONFIG'] = [
         'allowed'  => ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf'],
         'resume_allowed' => ['pdf', 'doc', 'docx'],
     ],
+
+    // ----------------------------------------------------------------- //
+    // Google OAuth 2.0
+    // Get credentials from: https://console.cloud.google.com/
+    // ----------------------------------------------------------------- //
+    'google' => [
+        'client_id'     => env('GOOGLE_CLIENT_ID', ''),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET', ''),
+        'redirect_uri'  => env('GOOGLE_REDIRECT_URI', ''),
+    ],
 ];

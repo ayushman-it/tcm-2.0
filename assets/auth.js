@@ -359,6 +359,19 @@
     /* ─── simulate async (replace with real API later) ─ */
     function fakeAsync(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+    /* ─── Base path from meta tag ────────────────────── */
+    const BASE = document.querySelector('meta[name="app-base"]')?.content || '';
+
+    /* ─── Real API helper ────────────────────────────── */
+    async function apiPost(endpoint, data) {
+        const resp = await fetch(BASE + endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+            body: JSON.stringify(data),
+        });
+        return resp.json();
+    }
+
     /* ─── state ─────────────────────────────────────── */
     let authEmail = '';
 
@@ -403,8 +416,10 @@
         /* ─── Google ─── */
         $('googleLoginBtn').addEventListener('click', e => {
             e.preventDefault();
-            // TODO: connect real Google OAuth
-            showSuccess('Signed in with Google', 'Welcome! Redirecting to your dashboard…');
+            // Redirect to backend Google OAuth route
+            // BASE_PATH is injected by the backend via a <meta> tag, or falls back to empty string
+            const base = document.querySelector('meta[name="app-base"]')?.content || '';
+            window.location.href = base + '/auth/google';
         });
 
         /* ─── Send OTP (landing) ─── */
@@ -417,13 +432,20 @@
             const btn = $('landingSendOtp');
             btn.disabled = true;
             btn.textContent = 'Sending…';
-            await fakeAsync(900);
-            btn.textContent = 'Sent!';
 
+            const res = await apiPost('/auth/otp/request', { email: authEmail }).catch(() => null);
+
+            if (!res || !res.success) {
+                btn.disabled = false;
+                btn.textContent = 'Send OTP';
+                fieldError(emailEl, res?.message || 'Failed to send OTP. Try again.');
+                return;
+            }
+
+            btn.textContent = 'Sent ✓';
             $('otp-sent-to').innerHTML = `We sent a 6-digit OTP to <strong>${authEmail}</strong>`;
             showView('email-otp');
             startCountdown(30, $('otpCountdown'));
-            $(document.querySelector('#view-email-otp .auth-otp-wrap input').id || 'otpInputs')
             document.querySelector('#otpInputs input')?.focus();
         });
 
@@ -436,9 +458,16 @@
             }
             const btn = $('verifyOtpBtn');
             setLoading(btn, true);
-            await fakeAsync(1200);
+
+            const res = await apiPost('/auth/otp/verify', { email: authEmail, otp }).catch(() => null);
+
             setLoading(btn, false);
-            showSuccess('You\'re In! 🎉', 'Signed in via OTP. Welcome to The Code Munk!');
+            if (!res || !res.success) {
+                fieldError(document.querySelector('#view-email-otp .auth-form-group'), res?.message || 'Invalid or expired OTP.');
+                return;
+            }
+            showSuccess('You\'re In! 🎉', 'Signed in successfully. Redirecting…');
+            setTimeout(() => { window.location.href = res.data?.redirect || (BASE + '/student'); }, 1200);
         });
 
         /* ─── Continue with password (landing) ─── */
@@ -447,11 +476,6 @@
             const emailEl = $('landing-pw-email');
             if (!isEmail(emailEl.value)) { fieldError(emailEl, 'Enter a valid email.'); return; }
             authEmail = emailEl.value.trim();
-
-            const btn = $('landingPwNext');
-            setLoading(btn, true);
-            await fakeAsync(700);
-            setLoading(btn, false);
 
             $('login-email-display').innerHTML = `Signing in as <strong>${authEmail}</strong>`;
             $('regEmail').value = authEmail;
@@ -466,9 +490,16 @@
 
             const btn = $('loginSubmitBtn');
             setLoading(btn, true);
-            await fakeAsync(1000);
+
+            const res = await apiPost('/auth/login', { email: authEmail, password: pwEl.value }).catch(() => null);
+
             setLoading(btn, false);
+            if (!res || !res.success) {
+                fieldError(pwEl, res?.message || 'Invalid email or password.');
+                return;
+            }
             showSuccess('Welcome back! 👋', `Signed in as ${authEmail}`);
+            setTimeout(() => { window.location.href = res.data?.redirect || (BASE + '/student'); }, 1200);
         });
 
         /* ─── Go to register ─── */
@@ -495,9 +526,21 @@
 
             const btn = $('registerBtn');
             setLoading(btn, true);
-            await fakeAsync(1200);
+
+            const res = await apiPost('/auth/register', {
+                name: nameEl.value.trim(),
+                email: emailEl.value.trim(),
+                password: pwEl.value,
+                password_confirmation: pwEl.value,
+            }).catch(() => null);
+
             setLoading(btn, false);
+            if (!res || !res.success) {
+                fieldError(emailEl, res?.message || 'Registration failed. Try again.');
+                return;
+            }
             showSuccess('Account Created! 🎉', `Welcome, ${nameEl.value.split(' ')[0]}! Your journey starts now.`);
+            setTimeout(() => { window.location.href = res.data?.redirect || (BASE + '/student/onboarding'); }, 1200);
         });
 
         /* ─── Forgot – Send OTP ─── */
@@ -508,8 +551,15 @@
 
             const btn = $('forgotSendOtp');
             btn.disabled = true; btn.textContent = 'Sending…';
-            await fakeAsync(900);
-            btn.textContent = 'Sent!';
+
+            const res = await apiPost('/auth/password/request', { email: emailEl.value.trim() }).catch(() => null);
+
+            if (!res || !res.success) {
+                btn.disabled = false; btn.textContent = 'Send OTP';
+                fieldError(emailEl, res?.message || 'Failed to send OTP.');
+                return;
+            }
+            btn.textContent = 'Sent ✓';
             showView('forgot-otp');
             document.querySelector('#forgotOtpInputs input')?.focus();
         });
@@ -529,9 +579,20 @@
 
             const btn = $('resetPasswordBtn');
             setLoading(btn, true);
-            await fakeAsync(1200);
+
+            const res = await apiPost('/auth/password/reset', {
+                email: $('forgotEmail').value.trim(),
+                otp,
+                password: newPw.value,
+            }).catch(() => null);
+
             setLoading(btn, false);
-            showSuccess('Password Reset! ✅', 'Your password has been updated. You can now sign in.');
+            if (!res || !res.success) {
+                fieldError(confPw, res?.message || 'Reset failed. Please try again.');
+                return;
+            }
+            showSuccess('Password Reset! ✅', 'Your password has been updated.');
+            setTimeout(() => { window.location.href = res.data?.redirect || (BASE + '/student'); }, 1200);
         });
 
         /* ─── Password toggle ─── */
