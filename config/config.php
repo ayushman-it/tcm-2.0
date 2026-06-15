@@ -8,6 +8,10 @@
 
 declare(strict_types=1);
 
+if (isset($GLOBALS['__TCM_CONFIG']) && is_array($GLOBALS['__TCM_CONFIG'])) {
+    return $GLOBALS['__TCM_CONFIG'];
+}
+
 // ---------------------------------------------------------------------------
 // Lightweight .env loader (no external dependency)
 // ---------------------------------------------------------------------------
@@ -54,7 +58,7 @@ if (!function_exists('env')) {
     }
 }
 
-return [
+return $GLOBALS['__TCM_CONFIG'] = [
     'app' => [
         'name'      => env('APP_NAME', 'The Code Munk'),
         'env'       => env('APP_ENV', 'development'),
@@ -77,6 +81,17 @@ return [
     'session' => [
         'name'     => env('SESSION_NAME', 'tcm_session'),
         'lifetime' => (int) env('SESSION_LIFETIME', 7200),
+    ],
+    'mail' => [
+        'host'       => env('MAIL_HOST', 'smtp.gmail.com'),
+        'port'       => (int) env('MAIL_PORT', 465),
+        'username'   => env('MAIL_USERNAME', ''),
+        'password'   => env('MAIL_PASSWORD', ''),
+        'encryption' => env('MAIL_ENCRYPTION', 'ssl'), // ssl (465) or tls (587)
+        'from_email' => env('MAIL_FROM', env('MAIL_USERNAME', 'no-reply@thecodemunk.com')),
+        'from_name'  => env('MAIL_FROM_NAME', 'The Code Munk'),
+        // Where contact/lead/application notifications are sent.
+        'admin_email' => env('MAIL_ADMIN', env('MAIL_USERNAME', '')),
     ],
     'uploads' => [
         // Absolute path on disk where public uploaded files are stored

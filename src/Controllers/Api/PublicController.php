@@ -11,8 +11,10 @@ use TCM\Core\Request;
 use TCM\Core\Response;
 use TCM\Core\Validator;
 use TCM\Core\WhatsApp;
+use TCM\Core\Mailer;
 use TCM\Models\Course;
 use TCM\Models\Event;
+use TCM\Models\Lead;
 use TCM\Models\Post;
 use TCM\Models\Program;
 use TCM\Models\Testimonial;
@@ -121,6 +123,37 @@ final class PublicController extends Controller
             'message' => Request::string('message'),
             'status'  => 'new',
         ]);
+        Lead::capture([
+            'name'          => Request::string('name'),
+            'email'         => Request::string('email'),
+            'phone'         => Request::string('phone') ?: null,
+            'interest_type' => 'contact',
+            'message'       => Request::string('message'),
+            'source'        => 'contact-form',
+        ]);
+
+        $name = Request::string('name');
+        $email = Request::string('email');
+        $admin = (string) config('mail.admin_email');
+        if ($admin !== '') {
+            Mailer::send(
+                $admin,
+                'New contact message from ' . $name,
+                Mailer::template('New contact message', sprintf(
+                    '<p><strong>%s</strong> &lt;%s&gt; %s</p><p><em>%s</em></p><p>%s</p>',
+                    e($name), e($email), e(Request::string('phone') ?: ''),
+                    e(Request::string('subject') ?: 'General'),
+                    nl2br(e(Request::string('message')))
+                ))
+            );
+        }
+        Mailer::send(
+            $email,
+            'We received your message — The Code Munk',
+            Mailer::template('Thanks for reaching out, ' . $name . '!',
+                '<p>We have received your message and will reply within 24 hours.</p>')
+        );
+
         Response::success(null, 'Thanks for reaching out! We will reply soon.');
     }
 

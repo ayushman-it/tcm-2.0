@@ -102,6 +102,27 @@ final class InternshipController extends Controller
             'status'        => 'submitted',
         ]);
 
+        // Acknowledge the applicant and notify the team.
+        \TCM\Core\Mailer::send(
+            Request::string('email'),
+            'Application received — ' . $program['title'],
+            \TCM\Core\Mailer::template('Thanks for applying, ' . Request::string('full_name') . '!',
+                '<p>We have received your application for <strong>' . e($program['title'])
+                . '</strong>. Our team will review it and get back to you soon.</p>')
+        );
+        $admin = (string) config('mail.admin_email');
+        if ($admin !== '') {
+            \TCM\Core\Mailer::send(
+                $admin,
+                'New internship application: ' . $program['title'],
+                \TCM\Core\Mailer::template('New internship application', sprintf(
+                    '<p><strong>%s</strong> (%s, %s) applied for <strong>%s</strong>.</p><p><a href="%s">Review applications</a></p>',
+                    e(Request::string('full_name')), e(Request::string('email')), e(Request::string('phone')),
+                    e($program['title']), base_url('/admin/internships')
+                ))
+            );
+        }
+
         flash('success', 'Application submitted for ' . $program['title'] . '. We will review and reach out.');
         redirect('/student/applications');
     }

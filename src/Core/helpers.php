@@ -12,10 +12,10 @@ if (!function_exists('config')) {
      */
     function config(?string $key = null, mixed $default = null): mixed
     {
-        static $config = null;
-        if ($config === null) {
-            $config = require dirname(__DIR__, 2) . '/config/config.php';
+        if (!isset($GLOBALS['__TCM_CONFIG']) || !is_array($GLOBALS['__TCM_CONFIG'])) {
+            require dirname(__DIR__, 2) . '/config/config.php';
         }
+        $config = $GLOBALS['__TCM_CONFIG'] ?? [];
         if ($key === null) {
             return $config;
         }

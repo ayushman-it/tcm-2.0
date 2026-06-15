@@ -99,6 +99,22 @@ final class EnquiryController extends Controller
         $waLink = WhatsApp::link($message);
         Lead::update($leadId, ['whatsapp_sent' => 1]);
 
+        // Notify the team about the new lead.
+        $admin = (string) config('mail.admin_email');
+        if ($admin !== '') {
+            \TCM\Core\Mailer::send(
+                $admin,
+                'New lead: ' . ($title ?? ucfirst($type)),
+                \TCM\Core\Mailer::template('New website lead', sprintf(
+                    '<p><strong>%s</strong></p><p>Phone: %s<br>Email: %s</p>'
+                    . '<p>Interested in <strong>%s</strong> (%s)</p>'
+                    . '<p><a href="%s">Open Leads dashboard</a></p>',
+                    e($name), e((string) $phone), e((string) ($email ?? '')),
+                    e($title ?? '—'), e($type), base_url('/admin/leads')
+                ))
+            );
+        }
+
         if (Request::isJson()) {
             Response::success(['whatsapp_url' => $waLink, 'lead_id' => $leadId], 'Enquiry captured.');
         }

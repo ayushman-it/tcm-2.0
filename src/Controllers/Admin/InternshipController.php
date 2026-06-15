@@ -57,6 +57,11 @@ final class InternshipController extends Controller
     {
         Auth::require('admin');
         $id = (int) $params['id'];
+        $app = InternshipApplication::find($id);
+        if ($app === null) {
+            flash('error', 'Application not found.');
+            redirect('/admin/internships');
+        }
         $status = Request::string('status', 'under_review');
         if (!array_key_exists($status, InternshipApplication::STATUSES)) {
             $status = 'under_review';
@@ -66,6 +71,23 @@ final class InternshipController extends Controller
             'notes'       => Request::string('notes'),
             'reviewed_at' => date('Y-m-d H:i:s'),
         ]);
+
+        // Email the applicant when their status changes (skip internal "under_review").
+        if ($status !== $app['status'] && in_array($status, ['shortlisted', 'selected', 'rejected'], true)) {
+            $program = Database::first('SELECT title FROM programs WHERE id = ?', [(int) $app['program_id']]);
+            $title = $program['title'] ?? 'the internship';
+            $copy = [
+                'shortlisted' => 'Great news! You have been <strong>shortlisted</strong> for ' . e($title) . '. We will share the next steps shortly.',
+                'selected'    => 'Congratulations! You have been <strong>selected</strong> for ' . e($title) . '. Welcome aboard — we will reach out with onboarding details.',
+                'rejected'    => 'Thank you for applying to ' . e($title) . '. After careful review we are unable to proceed this time. Please keep learning and apply again.',
+            ][$status];
+            \TCM\Core\Mailer::send(
+                (string) $app['email'],
+                'Update on your application — ' . $title,
+                \TCM\Core\Mailer::template('Application update', '<p>Hi ' . e((string) $app['full_name']) . ',</p><p>' . $copy . '</p>')
+            );
+        }
+
         $this->respond(null, 'Application updated.', '/admin/internships/' . $id);
     }
 

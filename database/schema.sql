@@ -490,3 +490,22 @@ CREATE TABLE IF NOT EXISTS internship_applications (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- =====================================================================
+-- Extension: Email OTP codes (passwordless login + password reset)
+-- =====================================================================
+SET FOREIGN_KEY_CHECKS = 0;
+
+CREATE TABLE IF NOT EXISTS email_otps (
+    id         BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    email      VARCHAR(190)    NOT NULL,
+    code_hash  VARCHAR(255)    NOT NULL,
+    purpose    ENUM('login','reset') NOT NULL DEFAULT 'login',
+    attempts   TINYINT         NOT NULL DEFAULT 0,
+    expires_at DATETIME        NOT NULL,
+    created_at DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_otp_email_purpose (email, purpose)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;

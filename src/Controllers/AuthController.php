@@ -7,7 +7,10 @@ namespace TCM\Controllers;
 use TCM\Core\Auth;
 use TCM\Core\Controller;
 use TCM\Core\Database;
+use TCM\Core\Mailer;
 use TCM\Core\Request;
+use TCM\Core\Response;
+use TCM\Models\Otp;
 
 final class AuthController extends Controller
 {
@@ -74,6 +77,8 @@ final class AuthController extends Controller
 
         Auth::login($userId);
 
+        $this->sendWelcome(Request::string('name'), strtolower(Request::string('email')));
+
         if (Request::isJson()) {
             \TCM\Core\Response::success(['redirect' => base_url('/student/onboarding')], 'Account created.');
         }
@@ -126,6 +131,143 @@ final class AuthController extends Controller
         Auth::logout();
         flash('success', 'You have been signed out.');
         redirect('/auth/login');
+    }
+
+    // ----------------------------------------------------------------- //
+    // Email OTP (passwordless) login — JSON, used by the site auth modal
+    // ----------------------------------------------------------------- //
+    public function otpRequest(): void
+    {
+        $email = strtolower(Request::string('email'));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            Response::error('Please enter a valid email address.', 422);
+        }
+
+        $code = Otp::issue($email, 'login');
+        $sent = Mailer::send(
+            $email,
+            'Your Code Munk login code: ' . $code,
+            Mailer::template('Your login code', sprintf(
+                '<p>Use this one-time code to sign in:</p>'
+                . '<p style="font-size:30px;font-weight:800;letter-spacing:6px;color:#6c5ce7;">%s</p>'
+                . '<p>The code expires in 10 minutes. If you did not request it, you can ignore this email.</p>',
+                $code
+            ))
+        );
+
+        if (!$sent && !Mailer::isConfigured()) {
+            Response::error('Email is not configured on the server yet.', 500);
+        }
+        // Do not reveal whether the email maps to an account.
+        Response::success(null, 'We have sent a 6-digit code to your email.');
+    }
+
+    public function otpVerify(): void
+    {
+        $email = strtolower(Request::string('email'));
+        $code = Request::string('otp') ?: Request::string('code');
+
+        if (!Otp::verify($email, $code, 'login')) {
+            Response::error('Invalid or expired code. Please try again.', 401);
+        }
+
+        $user = Database::first('SELECT * FROM users WHERE email = ? LIMIT 1', [$email]);
+        $isNew = false;
+        if ($user === null) {
+            // Passwordless sign-up: create a verified student account.
+            $userId = Auth::registerStudent(
+                ucfirst(explode('@', $email)[0]),
+                $email,
+                bin2hex(random_bytes(12))
+            );
+            Database::update('users', ['email_verified' => 1], ['id' => $userId]);
+            $user = Database::first('SELECT * FROM users WHERE id = ?', [$userId]);
+            $isNew = true;
+            $this->sendWelcome($user['name'], $email);
+        } else {
+            if ($user['status'] !== 'active') {
+                Response::error('Your account is not active. Please contact support.', 403);
+            }
+            Database::update('users', ['email_verified' => 1, 'last_login_at' => date('Y-m-d H:i:s')], ['id' => $user['id']]);
+        }
+
+        Auth::login((int) $user['id']);
+        Response::success(['redirect' => $this->dashboardUrl($user, $isNew)], 'Signed in successfully.');
+    }
+
+    // ----------------------------------------------------------------- //
+    // Forgot / reset password via email OTP — JSON
+    // ----------------------------------------------------------------- //
+    public function passwordOtpRequest(): void
+    {
+        $email = strtolower(Request::string('email'));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            Response::error('Please enter a valid email address.', 422);
+        }
+
+        $user = Database::first('SELECT id FROM users WHERE email = ? LIMIT 1', [$email]);
+        if ($user !== null) {
+            $code = Otp::issue($email, 'reset');
+            Mailer::send(
+                $email,
+                'Reset your Code Munk password: ' . $code,
+                Mailer::template('Password reset code', sprintf(
+                    '<p>Use this code to reset your password:</p>'
+                    . '<p style="font-size:30px;font-weight:800;letter-spacing:6px;color:#6c5ce7;">%s</p>'
+                    . '<p>The code expires in 10 minutes.</p>',
+                    $code
+                ))
+            );
+        }
+        // Always respond the same way.
+        Response::success(null, 'If that email has an account, a reset code is on its way.');
+    }
+
+    public function passwordReset(): void
+    {
+        $email = strtolower(Request::string('email'));
+        $code = Request::string('otp') ?: Request::string('code');
+        $password = Request::string('password');
+
+        if (strlen($password) < 8) {
+            Response::error('Password must be at least 8 characters.', 422);
+        }
+        if (!Otp::verify($email, $code, 'reset')) {
+            Response::error('Invalid or expired code.', 401);
+        }
+        $user = Database::first('SELECT * FROM users WHERE email = ? LIMIT 1', [$email]);
+        if ($user === null) {
+            Response::error('Account not found.', 404);
+        }
+
+        Database::update('users', [
+            'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+        ], ['id' => $user['id']]);
+
+        Auth::login((int) $user['id']);
+        Response::success(['redirect' => $this->dashboardUrl($user, false)], 'Password updated. You are signed in.');
+    }
+
+    private function dashboardUrl(array $user, bool $isNew): string
+    {
+        if ($user['role'] === 'admin') {
+            return base_url('/admin');
+        }
+        return ($isNew || (int) $user['onboarded'] === 0) ? base_url('/student/onboarding') : base_url('/student');
+    }
+
+    private function sendWelcome(string $name, string $email): void
+    {
+        Mailer::send(
+            $email,
+            'Welcome to The Code Munk 🎉',
+            Mailer::template('Welcome, ' . $name . '!', sprintf(
+                '<p>Your account is ready. You can explore courses, join live programs, '
+                . 'apply for internships and build your developer portfolio.</p>'
+                . '<p><a href="%s" style="display:inline-block;background:#6c5ce7;color:#fff;padding:11px 20px;border-radius:10px;text-decoration:none;font-weight:600;">Go to your dashboard</a></p>',
+                base_url('/student')
+            ))
+        );
     }
 
     private function redirectByRole(): never

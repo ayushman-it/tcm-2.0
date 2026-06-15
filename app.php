@@ -35,6 +35,10 @@ $router->post('/auth/login', ['TCM\Controllers\AuthController', 'login']);
 $router->get('/auth/register', ['TCM\Controllers\AuthController', 'showRegister']);
 $router->post('/auth/register', ['TCM\Controllers\AuthController', 'register']);
 $router->post('/auth/logout', ['TCM\Controllers\AuthController', 'logout']);
+$router->post('/auth/otp/request', ['TCM\Controllers\AuthController', 'otpRequest']);
+$router->post('/auth/otp/verify', ['TCM\Controllers\AuthController', 'otpVerify']);
+$router->post('/auth/password/request', ['TCM\Controllers\AuthController', 'passwordOtpRequest']);
+$router->post('/auth/password/reset', ['TCM\Controllers\AuthController', 'passwordReset']);
 
 // --------------------------------------------------------------------- //
 // Admin dashboard
