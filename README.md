@@ -77,6 +77,23 @@ php -S 127.0.0.1:8000 router.php
 # open http://127.0.0.1:8000
 ```
 
+## Email (Gmail SMTP)
+The platform sends real email via Gmail SMTP (a small built-in SMTP client,
+no dependencies). Configure `MAIL_*` in `.env` with a Gmail **App Password**.
+Powers:
+- **OTP login / passwordless sign-up** and **password reset** in the site's
+  auth modal (the designer's UI, now wired to the backend)
+- **Welcome** email on sign-up
+- **Contact** form: admin notification + acknowledgement to the sender
+- **Lead** notifications to the team
+- **Internship**: acknowledgement to the applicant, notification to the team,
+  and a status-update email on shortlist/select/reject
+
+Test delivery from the server with:
+```bash
+php bin/test-mail.php you@example.com
+```
+
 ## How enrolment works (lead + WhatsApp, no simulated payment)
 ```
 Visitor clicks Enrol / Enquire  ->  lead saved in DB  ->  Admin → Leads
