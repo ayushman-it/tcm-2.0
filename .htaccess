@@ -1,0 +1,29 @@
+# The Code Munk - root routing
+# Web root = project root. Original static pages + assets are served directly;
+# dynamic app routes (/auth, /admin, /student, /api, /enquiry, /portfolio) go to app.php.
+
+DirectoryIndex index.html
+
+# Disable directory listings
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct access to application internals and secrets
+    RewriteRule ^(src|config|database|storage|views|bin)(/|$) - [F,L]
+    RewriteRule (^|/)\.(env|git) - [F,L]
+
+    # Serve real files and directories (HTML, CSS, JS, uploads) as-is
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route everything else through the front controller
+    RewriteRule ^ app.php [L]
+</IfModule>
+
+# Belt-and-braces: deny dotfiles
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
