@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs & Events – The Code Munk</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/programs.css">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg p-0">
+                <a class="navbar-brand logo" href="index.html">
+                    <i class="bi bi-code-slash"></i>
+                    The Code Munk
+                </a>
+                <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                    <ul class="navbar-nav align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link active-nav" href="programs.html">Programs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insights.html">TCM Insights</a></li>
+                        <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        <li class="nav-item"><a href="#" class="join-btn">Join Now</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="pg-hero">
+        <div class="container">
+            <div class="pg-hero-inner">
+                <span class="pg-hero-tag">
+                    <i class="bi bi-calendar2-event"></i>
+                    Events & Programs
+                </span>
+                <h1>Every Event Is a<br>Step Forward</h1>
+                <p>Workshops, bootcamps, live sessions and cohorts — find the one that fits your schedule and goals.</p>
+                <div class="pg-hero-stats">
+                    <div><strong>30+</strong><span>Events This Month</span></div>
+                    <div class="pg-stat-sep"></div>
+                    <div><strong>1,200+</strong><span>Students Joined</span></div>
+                    <div class="pg-stat-sep"></div>
+                    <div><strong>Free &amp; Paid</strong><span>Options Available</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FILTER + EVENTS ===== -->
+    <section class="pg-events-section">
+        <div class="container">
+
+            <!-- Filter Bar -->
+            <div class="pg-filter-bar">
+
+                <!-- Search -->
+                <div class="pg-search-wrap">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search events..." />
+                </div>
+
+                <!-- Filters -->
+                <div class="pg-filters">
+
+                    <!-- Status -->
+                    <div class="pg-filter-group">
+                        <button class="pg-filter-btn active" data-filter="status" data-value="all">All</button>
+                        <button class="pg-filter-btn" data-filter="status" data-value="ongoing">
+                            <span class="pg-live-dot"></span> Ongoing
+                        </button>
+                        <button class="pg-filter-btn" data-filter="status" data-value="upcoming">Upcoming</button>
+                        <button class="pg-filter-btn" data-filter="status" data-value="past">Past</button>
+                    </div>
+
+                    <!-- Type -->
+                    <div class="pg-filter-group">
+                        <button class="pg-filter-btn active" data-filter="type" data-value="all">All Types</button>
+                        <button class="pg-filter-btn" data-filter="type" data-value="free">Free</button>
+                        <button class="pg-filter-btn" data-filter="type" data-value="paid">Paid</button>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="pg-filter-group">
+                        <button class="pg-filter-btn active" data-filter="cat" data-value="all">All Topics</button>
+                        <button class="pg-filter-btn" data-filter="cat" data-value="frontend">Frontend</button>
+                        <button class="pg-filter-btn" data-filter="cat" data-value="backend">Backend</button>
+                        <button class="pg-filter-btn" data-filter="cat" data-value="python">Python</button>
+                        <button class="pg-filter-btn" data-filter="cat" data-value="dsa">DSA</button>
+                        <button class="pg-filter-btn" data-filter="cat" data-value="career">Career</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Results count -->
+            <div class="pg-results-info">
+                <span id="resultsCount">12 events found</span>
+                <button class="pg-clear-btn" id="clearFilters">Clear Filters</button>
+            </div>
+
+            <!-- Events Grid -->
+            <div class="pg-events-grid" id="eventsGrid">
+
+                <!-- EVENT 1 -->
+                <div class="pg-event-card"
+                    data-status="ongoing"
+                    data-type="free"
+                    data-cat="frontend"
+                    data-title="frontend development bootcamp">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge ongoing">
+                            <span class="pg-live-dot"></span> Live Now
+                        </div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">Frontend</div>
+                    <h3>Frontend Development Bootcamp</h3>
+                    <p>Learn HTML, CSS and JavaScript through practical projects and expert mentorship.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 15 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 07:00 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:75%"></div></div>
+                        <span>12 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 2 -->
+                <div class="pg-event-card"
+                    data-status="ongoing"
+                    data-type="paid"
+                    data-cat="frontend"
+                    data-title="react masterclass">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge ongoing">
+                            <span class="pg-live-dot"></span> Live Now
+                        </div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Frontend</div>
+                    <h3>React Masterclass</h3>
+                    <p>Build modern applications using React and industry best practices.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 18 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 08:00 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:62%"></div></div>
+                        <span>10 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 3 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="free"
+                    data-cat="python"
+                    data-title="python fundamentals workshop">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">Python</div>
+                    <h3>Python Fundamentals Workshop</h3>
+                    <p>Learn Python from basics to automation through practical examples.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 22 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 06:00 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:37%"></div></div>
+                        <span>6 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 4 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="paid"
+                    data-cat="backend"
+                    data-title="node js and express backend bootcamp">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Backend</div>
+                    <h3>Node.js &amp; Express Backend Bootcamp</h3>
+                    <p>Build RESTful APIs, connect databases and handle auth with Node.js.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 25 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 07:30 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:25%"></div></div>
+                        <span>4 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 5 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="free"
+                    data-cat="dsa"
+                    data-title="dsa crash course for interviews">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">DSA</div>
+                    <h3>DSA Crash Course for Interviews</h3>
+                    <p>Arrays, strings, sorting and searching — everything you need to crack coding rounds.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 28 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 09:00 AM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:12%"></div></div>
+                        <span>2 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 6 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="paid"
+                    data-cat="career"
+                    data-title="resume and linkedin masterclass">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Career</div>
+                    <h3>Resume &amp; LinkedIn Masterclass</h3>
+                    <p>Build a resume that gets noticed and a LinkedIn profile that attracts recruiters.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 1 July 2026</span>
+                        <span><i class="bi bi-clock"></i> 06:30 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:50%"></div></div>
+                        <span>8 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 7 -->
+                <div class="pg-event-card"
+                    data-status="past"
+                    data-type="free"
+                    data-cat="frontend"
+                    data-title="html css zero to hero">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge past">Completed</div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">Frontend</div>
+                    <h3>HTML &amp; CSS: Zero to Hero</h3>
+                    <p>A 3-hour live session that took absolute beginners from nothing to a working webpage.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 5 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 07:00 PM</span>
+                        <span><i class="bi bi-people"></i> 48 Attended</span>
+                    </div>
+                    <div class="pg-seats-wrap past-seats">
+                        <span><i class="bi bi-check-circle-fill"></i> Event Completed</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn secondary">View Recording <i class="bi bi-play-circle"></i></a>
+                </div>
+
+                <!-- EVENT 8 -->
+                <div class="pg-event-card"
+                    data-status="past"
+                    data-type="paid"
+                    data-cat="python"
+                    data-title="python for automation bootcamp">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge past">Completed</div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Python</div>
+                    <h3>Python for Automation Bootcamp</h3>
+                    <p>Automate boring tasks using Python — files, emails, web scraping and more.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 1 June 2026</span>
+                        <span><i class="bi bi-clock"></i> 06:00 PM</span>
+                        <span><i class="bi bi-people"></i> 32 Attended</span>
+                    </div>
+                    <div class="pg-seats-wrap past-seats">
+                        <span><i class="bi bi-check-circle-fill"></i> Event Completed</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn secondary">View Recording <i class="bi bi-play-circle"></i></a>
+                </div>
+
+                <!-- EVENT 9 -->
+                <div class="pg-event-card"
+                    data-status="past"
+                    data-type="free"
+                    data-cat="dsa"
+                    data-title="intro to dsa with javascript">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge past">Completed</div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">DSA</div>
+                    <h3>Intro to DSA with JavaScript</h3>
+                    <p>Arrays, loops and basic problem-solving — a gentle introduction to data structures.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 28 May 2026</span>
+                        <span><i class="bi bi-clock"></i> 08:00 PM</span>
+                        <span><i class="bi bi-people"></i> 61 Attended</span>
+                    </div>
+                    <div class="pg-seats-wrap past-seats">
+                        <span><i class="bi bi-check-circle-fill"></i> Event Completed</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn secondary">View Recording <i class="bi bi-play-circle"></i></a>
+                </div>
+
+                <!-- EVENT 10 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="free"
+                    data-cat="career"
+                    data-title="mock interview session">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge free">Free</div>
+                    </div>
+                    <div class="pg-card-cat">Career</div>
+                    <h3>Mock Interview Session</h3>
+                    <p>Face a real interview-style session with our mentors and get detailed feedback.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 5 July 2026</span>
+                        <span><i class="bi bi-clock"></i> 10:00 AM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:18%"></div></div>
+                        <span>3 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 11 -->
+                <div class="pg-event-card"
+                    data-status="upcoming"
+                    data-type="paid"
+                    data-cat="frontend"
+                    data-title="tailwind css and next js workshop">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge upcoming">Upcoming</div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Frontend</div>
+                    <h3>Tailwind CSS &amp; Next.js Workshop</h3>
+                    <p>Build production-ready UIs fast using Tailwind CSS with Next.js framework.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 8 July 2026</span>
+                        <span><i class="bi bi-clock"></i> 07:00 PM</span>
+                        <span><i class="bi bi-laptop"></i> Online</span>
+                    </div>
+                    <div class="pg-seats-wrap">
+                        <div class="pg-seats-bar"><div class="pg-seats-fill" style="width:31%"></div></div>
+                        <span>5 / 16 seats filled</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn">View Event <i class="bi bi-arrow-right"></i></a>
+                </div>
+
+                <!-- EVENT 12 -->
+                <div class="pg-event-card"
+                    data-status="past"
+                    data-type="paid"
+                    data-cat="backend"
+                    data-title="mysql database design">
+                    <div class="pg-card-top">
+                        <div class="pg-status-badge past">Completed</div>
+                        <div class="pg-type-badge paid">Paid</div>
+                    </div>
+                    <div class="pg-card-cat">Backend</div>
+                    <h3>MySQL Database Design</h3>
+                    <p>Schema design, normalization, joins and queries — everything for backend devs.</p>
+                    <div class="pg-card-meta">
+                        <span><i class="bi bi-calendar-event"></i> 20 May 2026</span>
+                        <span><i class="bi bi-clock"></i> 06:30 PM</span>
+                        <span><i class="bi bi-people"></i> 27 Attended</span>
+                    </div>
+                    <div class="pg-seats-wrap past-seats">
+                        <span><i class="bi bi-check-circle-fill"></i> Event Completed</span>
+                    </div>
+                    <a href="event-details.html" class="pg-card-btn secondary">View Recording <i class="bi bi-play-circle"></i></a>
+                </div>
+
+            </div>
+
+            <!-- No results -->
+            <div class="pg-no-results" id="noResults" style="display:none;">
+                <i class="bi bi-search"></i>
+                <h4>No events found</h4>
+                <p>Try adjusting your filters or search term.</p>
+                <button class="pg-clear-btn" onclick="clearAllFilters()">Clear All Filters</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-card">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <a href="#" class="footer-logo">TCM</a>
+                        <p>Learn industry-ready skills, build real-world projects and gain practical experience with The Code Munk.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                        <div class="footer-tag"><i class="bi bi-check-circle-fill"></i> Student Focused Learning</div>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Training</h4>
+                            <a href="#">Full Stack Development</a>
+                            <a href="#">Data Analysis</a>
+                            <a href="#">Python Programming</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Programs</h4>
+                            <a href="#">Internship Program</a>
+                            <a href="#">Student Projects</a>
+                            <a href="#">Workshops</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Company</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Cuboidsoft Partnership</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Resources</h4>
+                            <a href="#">Student Reviews</a>
+                            <a href="#">FAQ</a>
+                            <a href="#">Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2026 The Code Munk. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Active filter state
+        const activeFilters = { status: 'all', type: 'all', cat: 'all' };
+        let searchQuery = '';
+
+        // Filter button clicks
+        document.querySelectorAll('.pg-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filterType = btn.dataset.filter;
+                const value = btn.dataset.value;
+
+                // Update active state within group
+                btn.closest('.pg-filter-group').querySelectorAll('.pg-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                activeFilters[filterType] = value;
+                applyFilters();
+            });
+        });
+
+        // Search input
+        document.getElementById('searchInput').addEventListener('input', e => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            applyFilters();
+        });
+
+        // Clear filters button
+        document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+
+        function clearAllFilters() {
+            activeFilters.status = 'all';
+            activeFilters.type = 'all';
+            activeFilters.cat = 'all';
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+
+            document.querySelectorAll('.pg-filter-group').forEach(group => {
+                group.querySelectorAll('.pg-filter-btn').forEach((btn, i) => {
+                    btn.classList.toggle('active', i === 0);
+                });
+            });
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.pg-event-card');
+            let visible = 0;
+
+            cards.forEach(card => {
+                const matchStatus = activeFilters.status === 'all' || card.dataset.status === activeFilters.status;
+                const matchType   = activeFilters.type === 'all'   || card.dataset.type   === activeFilters.type;
+                const matchCat    = activeFilters.cat === 'all'    || card.dataset.cat    === activeFilters.cat;
+                const matchSearch = !searchQuery || card.dataset.title.includes(searchQuery);
+
+                const show = matchStatus && matchType && matchCat && matchSearch;
+                card.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+
+            document.getElementById('resultsCount').textContent = `${visible} event${visible !== 1 ? 's' : ''} found`;
+            document.getElementById('noResults').style.display = visible === 0 ? 'flex' : 'none';
+        }
+    </script>
+
+</body>
+</html>

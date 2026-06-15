@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Stack Development – The Code Munk</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/course-details.css">
+</head>
+<body>
+
+    <!-- ===================== HEADER ===================== -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg p-0">
+                <a class="navbar-brand logo" href="index.html">
+                    <i class="bi bi-code-slash"></i>
+                    The Code Munk
+                </a>
+                <button class="navbar-toggler border-0 shadow-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarMenu">
+                    <ul class="navbar-nav align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insights.html">TCM Insights</a></li>
+                        <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                        <li class="nav-item"><a href="#" class="join-btn">Join Now</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================== BREADCRUMB ===================== -->
+    <div class="cd-breadcrumb">
+        <div class="container">
+            <a href="index.html">Home</a>
+            <i class="bi bi-chevron-right"></i>
+            <a href="#">Programs</a>
+            <i class="bi bi-chevron-right"></i>
+            <span>Full Stack Development</span>
+        </div>
+    </div>
+
+    <!-- ===================== COURSE HERO ===================== -->
+    <section class="cd-hero">
+        <div class="container">
+            <div class="cd-hero-grid">
+
+                <!-- Left Content -->
+                <div class="cd-hero-content">
+
+                    <div class="cd-badges">
+                        <span class="cd-badge-tag">
+                            <i class="bi bi-mortarboard-fill"></i>
+                            College Special
+                        </span>
+                        <span class="cd-badge-popular">
+                            <i class="bi bi-fire"></i>
+                            Bestseller
+                        </span>
+                    </div>
+
+                    <h1>Full Stack Development</h1>
+
+                    <p class="cd-hero-desc">
+                        Master frontend, backend and deployment through live sessions,
+                        real projects and expert mentorship. Built specifically for college
+                        students who want job-ready skills.
+                    </p>
+
+                    <div class="cd-stats-row">
+                        <div class="cd-stat">
+                            <strong>4.9</strong>
+                            <span>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </span>
+                            <small>238 reviews</small>
+                        </div>
+                        <div class="cd-stat-divider"></div>
+                        <div class="cd-stat">
+                            <strong>1,200+</strong>
+                            <small>Students Enrolled</small>
+                        </div>
+                        <div class="cd-stat-divider"></div>
+                        <div class="cd-stat">
+                            <strong>3 Months</strong>
+                            <small>Duration</small>
+                        </div>
+                        <div class="cd-stat-divider"></div>
+                        <div class="cd-stat">
+                            <strong>Live</strong>
+                            <small>Online Classes</small>
+                        </div>
+                    </div>
+
+                    <div class="cd-meta-row">
+                        <div><i class="bi bi-calendar-event"></i> Starts July 1, 2026</div>
+                        <div><i class="bi bi-clock"></i> 7:00 PM – 8:30 PM</div>
+                        <div><i class="bi bi-translate"></i> Hindi + English</div>
+                        <div><i class="bi bi-patch-check-fill"></i> Certificate Included</div>
+                    </div>
+
+                </div>
+
+                <!-- Right Enrollment Card -->
+                <div class="cd-enroll-card">
+
+                    <div class="cd-course-thumb">
+                        <div class="cd-sketch">
+                            <!-- Stick Figure -->
+                            <div class="cd-sketch-figure">
+                                <div class="sketch-head"></div>
+                                <div class="sketch-body"></div>
+                                <div class="sketch-arms"></div>
+                                <div class="sketch-legs">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <!-- Mini Laptop -->
+                            <div class="cd-sketch-laptop">
+                                <div class="sketch-screen">
+                                    <div class="sketch-screen-lines">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                                <div class="sketch-base"></div>
+                            </div>
+                        </div>
+                        <div class="cd-sketch-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="cd-sketch-label">Full Stack Dev</div>
+                    </div>
+
+                    <div class="cd-price-block">
+                        <div class="cd-price">₹4,999</div>
+                        <div class="cd-price-original">₹7,999</div>
+                        <div class="cd-discount-badge">37% Off</div>
+                    </div>
+
+                    <div class="cd-seats">
+                        <div class="cd-seats-bar">
+                            <div class="cd-seats-fill" style="width: 75%"></div>
+                        </div>
+                        <p><strong>6 seats left</strong> out of 24</p>
+                    </div>
+
+                    <a href="#" class="cd-enroll-btn">
+                        Enroll Now
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <a href="#" class="cd-brochure-btn">
+                        <i class="bi bi-download"></i>
+                        Download Brochure
+                    </a>
+
+                    <div class="cd-offer-timer">
+                        <i class="bi bi-clock-history"></i>
+                        Offer ends in &nbsp;<span id="countdown">23:59:47</span>
+                    </div>
+
+                    <!-- <ul class="cd-includes">
+                        <li><i class="bi bi-check-circle-fill"></i> 90+ Live Sessions</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 10 Real-World Projects</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Doubt Support on WhatsApp</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Session Recordings</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Completion Certificate</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Resume & LinkedIn Review</li>
+                    </ul> -->
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== QUICK ACTIONS ===================== -->
+    <section class="quick-actions-section">
+        <div class="container">
+            <div class="quick-actions-wrapper">
+                <div class="action-card primary-action">
+                    <div class="action-icon"><i class="bi bi-ticket-perforated"></i></div>
+                    <div class="action-content">
+                        <h3>Secure Your Seat</h3>
+                        <p>Limited spots available. Enroll before batch fills.</p>
+                    </div>
+                    <a href="#" class="action-btn">Enroll</a>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon"><i class="bi bi-headset"></i></div>
+                    <div class="action-content">
+                        <h3>Talk to Counsellor</h3>
+                        <p>Get answers before you decide to join.</p>
+                    </div>
+                    <a href="#" class="action-btn secondary">Consult</a>
+                </div>
+                <div class="action-card">
+                    <div class="action-icon"><i class="bi bi-share"></i></div>
+                    <div class="action-content">
+                        <h3>Refer a Friend</h3>
+                        <p>Share this course and earn rewards.</p>
+                    </div>
+                    <button class="action-btn secondary">Share</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- ===================== CURRICULUM ===================== -->
+    <section class="cd-curriculum-section">
+        <div class="container">
+
+            <div class="section-header text-center">
+                <span class="section-tag">CURRICULUM</span>
+                <h2 class="section-header-title">Course Curriculum</h2>
+                <p>90+ sessions spread across 12 modules covering everything from basics to deployment.</p>
+            </div>
+
+            <div class="cd-curriculum-meta">
+                <span><i class="bi bi-collection"></i> 12 Modules</span>
+                <span><i class="bi bi-camera-video"></i> 90+ Sessions</span>
+                <span><i class="bi bi-clock"></i> ~135 Hours</span>
+                <span><i class="bi bi-folder2-open"></i> 10 Projects</span>
+            </div>
+
+            <div class="cd-curriculum-wrapper">
+
+                <!-- Module 1 -->
+                <details class="cd-module" open>
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">01</div>
+                            <div>
+                                <h4>Introduction to Web Development</h4>
+                                <span>6 sessions &nbsp;·&nbsp; 9 hours &nbsp;·&nbsp; 1 project</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>How the web works – Browsers, Servers, HTTP</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Setting up your dev environment (VS Code, Extensions)</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Introduction to HTML – Structure & Semantics</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>HTML Forms, Tables & Media</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Introduction to CSS – Selectors, Box Model</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: Build a Personal Profile Page</span> <small class="project-tag">Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 2 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">02</div>
+                            <div>
+                                <h4>Advanced CSS & Responsive Design</h4>
+                                <span>8 sessions &nbsp;·&nbsp; 12 hours &nbsp;·&nbsp; 1 project</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Flexbox – Layout & Alignment</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>CSS Grid – Complex Layouts</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Responsive Design & Media Queries</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>CSS Variables, Animations & Transitions</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Bootstrap 5 – Grid, Components, Utilities</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>UI Design Principles for Developers</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Cross-browser Compatibility & Debugging</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: Clone a Real Website Layout</span> <small class="project-tag">Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 3 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">03</div>
+                            <div>
+                                <h4>JavaScript Fundamentals</h4>
+                                <span>10 sessions &nbsp;·&nbsp; 15 hours &nbsp;·&nbsp; 1 project</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Variables, Data Types & Operators</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Control Flow – if/else, loops, switch</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Functions, Scope & Closures</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Arrays & Array Methods</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Objects & Object-Oriented JavaScript</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>DOM Manipulation & Events</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>ES6+ Features – Arrow Functions, Destructuring, Modules</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Async JS – Callbacks, Promises, Async/Await</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Fetch API & Working with JSON</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: Interactive Quiz App</span> <small class="project-tag">Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 4 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">04</div>
+                            <div>
+                                <h4>React.js – Modern Frontend</h4>
+                                <span>12 sessions &nbsp;·&nbsp; 18 hours &nbsp;·&nbsp; 2 projects</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Introduction to React & JSX</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Components, Props & State</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>React Hooks – useState, useEffect, useRef</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Event Handling & Forms in React</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>React Router – Navigation & Pages</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Context API & Global State</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>API Integration in React</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Performance Optimization & Lazy Loading</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: E-Commerce Product Listing App</span> <small class="project-tag">Project</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: Blog App with API</span> <small class="project-tag">Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 5 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">05</div>
+                            <div>
+                                <h4>Node.js & Express – Backend Development</h4>
+                                <span>10 sessions &nbsp;·&nbsp; 15 hours &nbsp;·&nbsp; 1 project</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Introduction to Node.js & NPM</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Building a Server with Express.js</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>REST API Design – Routes, Controllers</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Middleware – Auth, Logging, Error Handling</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>File Uploads with Multer</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Environment Variables & Config Management</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Project: REST API for a Task Manager</span> <small class="project-tag">Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 6 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">06</div>
+                            <div>
+                                <h4>Databases – MySQL & MongoDB</h4>
+                                <span>8 sessions &nbsp;·&nbsp; 12 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Relational vs Non-Relational Databases</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>MySQL – Tables, Queries, Joins</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Node.js + MySQL Integration</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>MongoDB – Collections, Documents, CRUD</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Mongoose ORM & Schema Design</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Database Security & Indexing</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 7 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">07</div>
+                            <div>
+                                <h4>Authentication & Security</h4>
+                                <span>6 sessions &nbsp;·&nbsp; 9 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>User Auth with JWT (JSON Web Tokens)</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Password Hashing with bcrypt</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>OAuth & Social Login (Google)</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Role-Based Access Control (RBAC)</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Protecting Routes & API Security</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Common Vulnerabilities – XSS, CSRF, SQL Injection</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 8 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">08</div>
+                            <div>
+                                <h4>Git, GitHub & Collaboration</h4>
+                                <span>4 sessions &nbsp;·&nbsp; 6 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Git Basics – init, add, commit, push, pull</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Branching, Merging & Conflict Resolution</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>GitHub – Pull Requests, Issues, Forks</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Working in a Team – Code Reviews & Workflow</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 9 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">09</div>
+                            <div>
+                                <h4>Deployment & DevOps Basics</h4>
+                                <span>6 sessions &nbsp;·&nbsp; 9 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Deploying Frontend on Vercel & Netlify</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Deploying Backend on Railway & Render</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Domain & HTTPS Setup</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Environment & Production Configuration</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>CI/CD Pipeline Basics with GitHub Actions</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Monitoring & Logging Basics</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 10 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">10</div>
+                            <div>
+                                <h4>Capstone Project</h4>
+                                <span>8 sessions &nbsp;·&nbsp; 12 hours &nbsp;·&nbsp; 1 major project</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Project Planning & Architecture Design</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Frontend Development with React</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Backend API Development</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Database Integration</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Authentication & Authorization</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Testing & Debugging</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Deployment & Final Review</span> <small>Live</small></div>
+                        <div class="cd-lesson cd-project-lesson"><i class="bi bi-folder2-open"></i> <span>Capstone: Full Stack App of Your Choice</span> <small class="project-tag">Major Project</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 11 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">11</div>
+                            <div>
+                                <h4>Career Preparation</h4>
+                                <span>4 sessions &nbsp;·&nbsp; 6 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Resume Writing for Tech Roles</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>LinkedIn Profile Optimization</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>GitHub Portfolio Setup</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Mock Interviews & Feedback</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+                <!-- Module 12 -->
+                <details class="cd-module">
+                    <summary class="cd-module-header">
+                        <div class="cd-module-left">
+                            <div class="cd-module-num">12</div>
+                            <div>
+                                <h4>Bonus: Freelancing & DSA Intro</h4>
+                                <span>4 sessions &nbsp;·&nbsp; 6 hours</span>
+                            </div>
+                        </div>
+                        <i class="bi bi-chevron-down cd-module-arrow"></i>
+                    </summary>
+                    <div class="cd-module-body">
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Getting Clients as a Freelancer</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Pricing, Proposals & Project Management</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>DSA Basics – Arrays, Strings, Searching</span> <small>Live</small></div>
+                        <div class="cd-lesson"><i class="bi bi-play-circle"></i> <span>Common Interview Problems Walkthrough</span> <small>Live</small></div>
+                    </div>
+                </details>
+
+            </div><!-- end curriculum-wrapper -->
+
+        </div>
+    </section>
+
+
+    <!-- ===================== TECH STACK COVERED ===================== -->
+    <section class="cd-tech-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">TECH STACK</span>
+                <h2 class="section-header-title">Technologies You'll Master</h2>
+            </div>
+            <div class="cd-tech-grid">
+                <div class="cd-tech-item"><i class="bi bi-filetype-html"></i><span>HTML5</span></div>
+                <div class="cd-tech-item"><i class="bi bi-filetype-css"></i><span>CSS3</span></div>
+                <div class="cd-tech-item"><i class="bi bi-filetype-js"></i><span>JavaScript</span></div>
+                <div class="cd-tech-item"><i class="bi bi-bootstrap"></i><span>Bootstrap</span></div>
+                <div class="cd-tech-item"><i class="bi bi-code-square"></i><span>React.js</span></div>
+                <div class="cd-tech-item"><i class="bi bi-hdd-network"></i><span>Node.js</span></div>
+                <div class="cd-tech-item"><i class="bi bi-database"></i><span>MySQL</span></div>
+                <div class="cd-tech-item"><i class="bi bi-server"></i><span>MongoDB</span></div>
+                <div class="cd-tech-item"><i class="bi bi-github"></i><span>GitHub</span></div>
+                <div class="cd-tech-item"><i class="bi bi-cloud-arrow-up"></i><span>Vercel</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== WHO IS THIS FOR ===================== -->
+    <section class="cd-for-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">FOR WHOM</span>
+                <h2 class="section-header-title">Who Is This Course For?</h2>
+            </div>
+            <div class="cd-for-grid">
+                <div class="cd-for-card">
+                    <div class="cd-for-icon"><i class="bi bi-mortarboard"></i></div>
+                    <h4>College Students</h4>
+                    <p>2nd, 3rd or final year students who want to build practical skills alongside their degree.</p>
+                </div>
+                <div class="cd-for-card">
+                    <div class="cd-for-icon"><i class="bi bi-person-plus"></i></div>
+                    <h4>Beginners in Tech</h4>
+                    <p>Anyone who wants to start coding from scratch and build a career in web development.</p>
+                </div>
+                <div class="cd-for-card">
+                    <div class="cd-for-icon"><i class="bi bi-briefcase"></i></div>
+                    <h4>Freshers & Graduates</h4>
+                    <p>Recent graduates who want job-ready skills and a portfolio to crack interviews.</p>
+                </div>
+                <div class="cd-for-card">
+                    <div class="cd-for-icon"><i class="bi bi-laptop"></i></div>
+                    <h4>Aspiring Freelancers</h4>
+                    <p>People who want to start taking freelance projects and earn independently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== MENTOR ===================== -->
+    <section class="cd-mentor-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">YOUR MENTOR</span>
+                <h2 class="section-header-title">Learn From the Best</h2>
+            </div>
+            <div class="cd-mentor-card">
+
+                <!-- Banner -->
+                <div class="cd-mentor-banner">
+                    <div class="cd-mentor-avatar">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                    <div class="cd-mentor-banner-info">
+                        <h3>Instructor Name</h3>
+                        <p class="cd-mentor-title">Full Stack Developer &amp; Founder, The Code Munk</p>
+                    </div>
+                    <div class="cd-mentor-rating">
+                        <strong>4.9</strong>
+                        <span>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                        </span>
+                        <small>238 reviews</small>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="cd-mentor-body">
+
+                    <!-- Stats -->
+                    <div class="cd-mentor-stats">
+                        <div class="cd-mentor-stat">
+                            <strong>1,200+</strong>
+                            <span>Students Trained</span>
+                        </div>
+                        <div class="cd-mentor-stat">
+                            <strong>5+ Yrs</strong>
+                            <span>Industry Experience</span>
+                        </div>
+                        <div class="cd-mentor-stat">
+                            <strong>15+</strong>
+                            <span>Courses Delivered</span>
+                        </div>
+                    </div>
+
+                    <!-- Bio -->
+                    <p class="cd-mentor-bio">
+                        5+ years of industry experience building web applications for startups and
+                        enterprises. Has trained 1,200+ students across live batches and delivered
+                        workshops at multiple colleges. Known for breaking down complex topics into
+                        simple, practical concepts.
+                    </p>
+
+                    <!-- Skills -->
+                    <div class="cd-mentor-skills">
+                        <span>React.js</span>
+                        <span>Node.js</span>
+                        <span>MongoDB</span>
+                        <span>MySQL</span>
+                        <span>JavaScript</span>
+                        <span>System Design</span>
+                        <span>DSA</span>
+                    </div>
+
+                    <!-- Links -->
+                    <div class="cd-mentor-links">
+                        <a href="#"><i class="bi bi-linkedin"></i> LinkedIn</a>
+                        <a href="#"><i class="bi bi-github"></i> GitHub</a>
+                        <a href="#"><i class="bi bi-youtube"></i> YouTube</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">FAQ</span>
+                <h2 class="section-header-title">Frequently Asked Questions</h2>
+                <p>Everything you need to know before enrolling.</p>
+            </div>
+            <div class="faq-wrapper">
+                <details open>
+                    <summary><span>Do I need any prior coding experience?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">No. This course starts from absolute zero. We cover everything from setting up your laptop to deploying a full application.</div>
+                </details>
+                <details>
+                    <summary><span>Are classes live or recorded?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">Classes are live. All sessions are also recorded and shared with enrolled students so you never miss anything.</div>
+                </details>
+                <details>
+                    <summary><span>What is the class schedule?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">Classes run Monday to Friday, 7:00 PM to 8:30 PM IST. Weekend doubt-clearing sessions are also included.</div>
+                </details>
+                <details>
+                    <summary><span>Will I get a certificate?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">Yes. A completion certificate is provided after finishing the course. Project completion certificates are also given separately.</div>
+                </details>
+                <details>
+                    <summary><span>What kind of support is available?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">You get access to a dedicated WhatsApp support group where instructors and TAs answer questions within a few hours.</div>
+                </details>
+                <details>
+                    <summary><span>Is there an EMI option available?</span><i class="bi bi-plus-lg"></i></summary>
+                    <div class="faq-content">Yes, we offer easy EMI options. Contact our team for details on payment plans that suit your budget.</div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CTA SECTION ===================== -->
+    <section class="cd-cta-section">
+        <div class="container">
+            <div class="cd-cta-card">
+                <span class="section-tag">LIMITED SEATS</span>
+                <h2>Ready to Start Your Dev Journey?</h2>
+                <p>Join 1,200+ students who transformed their careers with The Code Munk. Next batch starts July 1.</p>
+                <div class="cd-cta-actions">
+                    <a href="#" class="cd-enroll-btn">
+                        Enroll Now – ₹4,999
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a href="#" class="cd-brochure-btn">
+                        <i class="bi bi-download"></i>
+                        Download Brochure
+                    </a>
+                </div>
+                <p class="cd-cta-note">
+                    <i class="bi bi-shield-check"></i>
+                    Secure payment &nbsp;·&nbsp; 7-day refund policy &nbsp;·&nbsp; EMI available
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-card">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <a href="#" class="footer-logo">TCM</a>
+                        <p>Learn industry-ready skills, build real-world projects and gain practical experience with The Code Munk.</p>
+                        <div class="footer-social">
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                            <a href="#"><i class="bi bi-youtube"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                        <div class="footer-tag">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Student Focused Learning
+                        </div>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Training</h4>
+                            <a href="#">Full Stack Development</a>
+                            <a href="#">Data Analysis</a>
+                            <a href="#">Python Programming</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Programs</h4>
+                            <a href="#">Internship Program</a>
+                            <a href="#">Student Projects</a>
+                            <a href="#">Workshops</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Company</h4>
+                            <a href="#">About Us</a>
+                            <a href="#">Cuboidsoft Partnership</a>
+                            <a href="#">Contact</a>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Resources</h4>
+                            <a href="#">Student Reviews</a>
+                            <a href="#">FAQ</a>
+                            <a href="#">Blog</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2026 The Code Munk. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const el = document.getElementById('countdown');
+            if (!el) return;
+            let [h, m, s] = el.textContent.split(':').map(Number);
+            s--;
+            if (s < 0) { s = 59; m--; }
+            if (m < 0) { m = 59; h--; }
+            if (h < 0) { h = 23; m = 59; s = 59; }
+            el.textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+        setInterval(updateCountdown, 1000);
+
+        // Curriculum module arrow rotation on open/close
+        document.querySelectorAll('.cd-module').forEach(mod => {
+            mod.addEventListener('toggle', () => {
+                const arrow = mod.querySelector('.cd-module-arrow');
+                arrow.style.transform = mod.open ? 'rotate(180deg)' : 'rotate(0deg)';
+            });
+            // Init state
+            const arrow = mod.querySelector('.cd-module-arrow');
+            if (mod.open) arrow.style.transform = 'rotate(180deg)';
+        });
+    </script>
+
+</body>
+</html>
