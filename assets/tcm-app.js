@@ -145,6 +145,79 @@
         }
     }
 
+    // Mimic auth.js view switching so we can drive flows after rebinding.
+    function showAuthView(name) {
+        document.querySelectorAll(".auth-view").forEach(function (v) { v.classList.remove("active"); });
+        var el = $("view-" + name);
+        if (el) el.classList.add("active");
+    }
+    function collectOtp(scopeSel) {
+        var inputs = document.querySelectorAll(scopeSel + " input");
+        return Array.prototype.map.call(inputs, function (i) { return (i.value || "").trim(); }).join("");
+    }
+
+    function wireAuthExtras() {
+        if (!$("authOverlay")) return;
+
+        // OTP login: send code (let auth.js handle the view switch), then verify for real.
+        var sendOtp = $("landingSendOtp");
+        if (sendOtp) {
+            sendOtp.addEventListener("click", function () {
+                var email = (($("landing-email") || {}).value || "").trim();
+                if (!email) return;
+                postJSON(api("/auth/otp/request"), { email: email })
+                    .then(function (res) { if (!res.success) modalNotice(res.message || "Could not send code.", false); })
+                    .catch(function () {});
+            });
+        }
+        var verifyBtn = rebind("verifyOtpBtn");
+        if (verifyBtn) {
+            verifyBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                var email = (($("landing-email") || {}).value || "").trim();
+                var code = collectOtp("#view-email-otp .auth-otp-wrap") || collectOtp("#otpInputs");
+                if (code.length < 6) { modalNotice("Enter the 6-digit code.", false); return; }
+                busy(verifyBtn, true);
+                postJSON(api("/auth/otp/verify"), { email: email, otp: code })
+                    .then(function (res) {
+                        if (res.success && res.data && res.data.redirect) { window.location = res.data.redirect; }
+                        else { modalNotice(res.message || "Invalid code.", false); busy(verifyBtn, false); }
+                    })
+                    .catch(function () { modalNotice("Network error.", false); busy(verifyBtn, false); });
+            });
+        }
+
+        // Forgot password: send reset code (auth.js switches view), then reset for real.
+        var forgotSend = $("forgotSendOtp");
+        if (forgotSend) {
+            forgotSend.addEventListener("click", function () {
+                var email = (($("forgotEmail") || {}).value || "").trim();
+                if (!email) return;
+                postJSON(api("/auth/password/request"), { email: email }).catch(function () {});
+            });
+        }
+        var resetBtn = rebind("resetPasswordBtn");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", function (e) {
+                e.preventDefault();
+                var email = (($("forgotEmail") || {}).value || "").trim();
+                var code = collectOtp("#view-forgot-otp .auth-otp-wrap") || collectOtp("#forgotOtpInputs");
+                var pw = (($("newPassword") || {}).value || "");
+                var conf = (($("confirmPassword") || {}).value || "");
+                if (code.length < 6) { modalNotice("Enter the 6-digit code.", false); return; }
+                if (pw.length < 8) { modalNotice("Password must be at least 8 characters.", false); return; }
+                if (pw !== conf) { modalNotice("Passwords do not match.", false); return; }
+                busy(resetBtn, true);
+                postJSON(api("/auth/password/reset"), { email: email, otp: code, password: pw })
+                    .then(function (res) {
+                        if (res.success && res.data && res.data.redirect) { window.location = res.data.redirect; }
+                        else { modalNotice(res.message || "Could not reset password.", false); busy(resetBtn, false); }
+                    })
+                    .catch(function () { modalNotice("Network error.", false); busy(resetBtn, false); });
+            });
+        }
+    }
+
     /* ================= WHATSAPP ======================================== */
     function waLink(message) {
         var num = (ME.whatsapp_number || "").replace(/\D+/g, "");
@@ -296,6 +369,7 @@
     ready(function () {
         wireContactForm();
         wireAuthModal();
+        wireAuthExtras();
         getJSON(api("/api/me"))
             .then(function (res) { if (res && res.data) ME = Object.assign(ME, res.data); })
             .catch(function () {})
