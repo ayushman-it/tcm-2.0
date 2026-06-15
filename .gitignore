@@ -1,0 +1,16 @@
+# Environment & secrets
+.env
+
+# Install lock (created by setup.php)
+storage/installed.lock
+
+# Private uploads (résumés) and public uploads — keep the folders, ignore contents
+storage/resumes/*
+!storage/resumes/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.log
