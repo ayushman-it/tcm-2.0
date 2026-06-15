@@ -460,7 +460,7 @@
 
 /* ---- What You Learn ---- */
 .cd-learn-section {
-    padding: 100px 0;
+    padding: 60px 0;
     background: #fafafa;
 }
 
@@ -503,7 +503,7 @@
 
 /* ---- Curriculum ---- */
 .cd-curriculum-section {
-    padding: 100px 0;
+    padding: 60px 0;
 }
 
 .cd-curriculum-meta {
@@ -667,7 +667,7 @@
 
 /* ---- Tech Stack ---- */
 .cd-tech-section {
-    padding: 80px 0;
+    padding: 50px 0;
     background: #fafafa;
 }
 
@@ -705,7 +705,7 @@
 
 /* ---- Who Is This For ---- */
 .cd-for-section {
-    padding: 100px 0;
+    padding: 60px 0;
 }
 
 .cd-for-grid {
@@ -760,7 +760,7 @@
 
 /* ---- Mentor ---- */
 .cd-mentor-section {
-    padding: 100px 0;
+    padding: 60px 0;
     background: #fafafa;
 }
 
@@ -928,7 +928,7 @@
 
 /* ---- CTA Section ---- */
 .cd-cta-section {
-    padding: 100px 0;
+    padding: 60px 0;
 }
 
 .cd-cta-card {

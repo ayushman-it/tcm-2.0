@@ -11,6 +11,7 @@
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/hero-effects.css">
 </head>
 <body>
 
@@ -53,7 +54,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
 
                         <li class="nav-item">
@@ -75,18 +76,28 @@
 
     <section class="hero">
 
+        <!-- Background elements -->
+        <div class="hero-bg-grid"></div>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
         <div class="container">
 
             <div class="row justify-content-center text-center">
 
                 <div class="col-xl-8 col-lg-9">
 
-                   <span class="hero-tag">
+                    <span class="hero-tag">
+                        <span class="hero-tag-dot"></span>
                         START • BUILD • SUCCEED
                     </span>
 
                     <h1 class="hero-title">
-                        Learn Coding With Confidence
+                        Learn Coding<br>
+                        <span class="hero-title-shine">With Confidence</span>
                     </h1>
 
                     <p class="hero-description">
@@ -95,18 +106,54 @@
                         from beginner to developer.
                     </p>
 
+                    <!-- Social proof strip -->
+                    <div class="hero-proof">
+                        <div class="hero-proof-avatars">
+                            <span>R</span><span>A</span><span>P</span><span>S</span><span>K</span>
+                        </div>
+                        <span class="hero-proof-text">
+                            <strong>1,200+ students</strong> already learning
+                        </span>
+                        <span class="hero-proof-stars">★★★★★</span>
+                        <span class="hero-proof-rating">4.9</span>
+                    </div>
+
                     <div class="hero-buttons">
 
-                        <a href="#" class="primary-btn">
-                            Start Learning
+                        <a href="#" class="primary-btn hero-cta-primary">
+                            <span>Start Learning</span>
                             <i class="bi bi-arrow-right"></i>
+                            <span class="btn-shimmer"></span>
                         </a>
 
-                        <a href="#" class="secondary-btn">
+                        <a href="#" class="secondary-btn hero-cta-secondary">
+                            <i class="bi bi-play-circle-fill"></i>
                             Explore Programs
-                            <i class="bi bi-play-circle"></i>
                         </a>
 
+                    </div>
+
+                    <!-- Stats row -->
+                    <div class="hero-stats">
+                        <div class="hero-stat-item">
+                            <strong>10+</strong>
+                            <span>Courses</span>
+                        </div>
+                        <div class="hero-stat-sep"></div>
+                        <div class="hero-stat-item">
+                            <strong>Live</strong>
+                            <span>Classes</span>
+                        </div>
+                        <div class="hero-stat-sep"></div>
+                        <div class="hero-stat-item">
+                            <strong>Free</strong>
+                            <span>Community</span>
+                        </div>
+                        <div class="hero-stat-sep"></div>
+                        <div class="hero-stat-item">
+                            <strong>₹999</strong>
+                            <span>Starting price</span>
+                        </div>
                     </div>
 
                 </div>
@@ -130,7 +177,7 @@
             </span>
 
             <h2 class="section-title">
-                Learn Together, Build Together
+                Learn Together, <span class="section-title-accent">Build Together</span>
             </h2>
 
             <p class="section-description">
@@ -2216,6 +2263,45 @@ function showEvents() {
     });
 
 });
+</script>
+
+<script>
+// ── Scroll-in reveal ──────────────────────────────────
+(function () {
+    // Add reveal class to section headers, cards, timeline items
+    const targets = [
+        '.section-header',
+        '.event-card',
+        '.course-card',
+        '.timeline-item',
+        '.transformation-card',
+        '.review-card',
+        '.career-card',
+        '.why-card',
+        '.feature-item',
+        '.action-card'
+    ];
+
+    targets.forEach((sel, si) => {
+        document.querySelectorAll(sel).forEach((el, i) => {
+            el.classList.add('reveal');
+            // stagger delay for grids
+            const delay = Math.min(i % 4, 3);
+            if (delay > 0) el.classList.add(`reveal-delay-${delay}`);
+        });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                io.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
 </script>
 
 
