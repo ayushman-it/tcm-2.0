@@ -95,7 +95,7 @@ final class AuthController extends Controller
             'title'   => 'Complete Your Profile',
             'user'    => $user,
             'profile' => $profile,
-        ], 'auth');
+        ], null);
     }
 
     public function saveOnboarding(): void
