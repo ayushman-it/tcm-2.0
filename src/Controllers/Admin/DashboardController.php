@@ -36,6 +36,7 @@ final class DashboardController extends Controller
 
         $this->view('admin/dashboard', [
             'title'          => 'Dashboard',
+            'user'           => Auth::user(),
             'stats'          => $stats,
             'recentOrders'   => $recentOrders,
             'recentStudents' => $recentStudents,

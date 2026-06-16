@@ -19,7 +19,7 @@ final class AuthController extends Controller
         if (Auth::check()) {
             $this->redirectByRole();
         }
-        $this->view('auth/login', ['title' => 'Sign In'], 'auth');
+        $this->view('auth/login', ['title' => 'Sign In'], null);
     }
 
     public function login(): void

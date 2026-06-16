@@ -95,4 +95,15 @@ final class Course extends Model
         }
         return (int) round((($original - $price) / $original) * 100);
     }
+
+    /**
+     * Calculate seats_filled from total_seats - seats_left (backward compat).
+     */
+    public static function seatsFilled(array $course): int
+    {
+        if (isset($course['seats_filled'])) {
+            return (int) $course['seats_filled'];
+        }
+        return max(0, (int) $course['total_seats'] - (int) $course['seats_left']);
+    }
 }

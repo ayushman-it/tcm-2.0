@@ -1,6 +1,9 @@
 # Environment & secrets
 .env
 
+# Utility scripts (delete after use)
+reseed.php
+
 # Install lock (created by setup.php)
 storage/installed.lock
 

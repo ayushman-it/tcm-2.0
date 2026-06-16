@@ -13,7 +13,9 @@
 (function () {
     "use strict";
 
-    var BASE = (window.TCM_BASE || "").replace(/\/$/, "");
+    var BASE = (window.TCM_BASE
+        || (document.querySelector('meta[name="app-base"]') || {}).content
+        || "").replace(/\/$/, "");
     var api = function (p) { return BASE + p; };
     var ME = { authenticated: false, dashboard_url: null, whatsapp_number: "", csrf_token: "" };
 
@@ -63,13 +65,20 @@
 
     /* ================= AUTH STATE + NAV ================================ */
     function applyAuthState() {
-        if (!ME.authenticated || !ME.dashboard_url) return;
-        // When signed in, the "Join Now" button becomes a Dashboard link.
+        if (!ME.authenticated) return;
+
+        // Replace every .join-btn with a proper link based on role
         document.querySelectorAll(".join-btn").forEach(function (el) {
-            var clone = el.cloneNode(true);          // strips the modal click handler
-            clone.textContent = "Dashboard";
-            clone.setAttribute("href", api(ME.dashboard_url));
+            var clone = el.cloneNode(true);
+            clone.textContent = ME.role === "admin" ? "Admin Panel" : "My Dashboard";
+            clone.setAttribute("href", api(ME.dashboard_url || "/student"));
+            clone.style.cssText += ";background:#111;color:#fff;";
             if (el.parentNode) el.parentNode.replaceChild(clone, el);
+        });
+
+        // Also hide auth overlay trigger links that have data-auth-trigger
+        document.querySelectorAll("[data-auth-trigger]").forEach(function (el) {
+            el.setAttribute("href", api(ME.dashboard_url || "/student"));
         });
     }
 
@@ -269,9 +278,29 @@
     }
 
     /* ================= LISTING HYDRATION =============================== */
+
+    // insights.html blog post card
+    function postCard(p) {
+        var date = p.published_at ? (function(d) {
+            var dt = new Date(d);
+            return dt.toLocaleDateString("en-IN", {day:"numeric", month:"short", year:"numeric"});
+        })(p.published_at) : "";
+        var tags = p.tags ? p.tags.split(",").map(function(t) {
+            return '<span class="ins-tag">#' + esc(t.trim()) + '</span>';
+        }).join("") : "";
+        return '<div class="ins-article-card">' +
+            '<div class="ins-article-meta">' +
+                '<span class="ins-article-cat">' + esc(p.category || "General") + '</span>' +
+                (date ? ' · <span class="ins-article-date">' + esc(date) + '</span>' : '') +
+            '</div>' +
+            '<h3 class="ins-article-title">' + esc(p.title) + '</h3>' +
+            '<p class="ins-article-excerpt">' + esc(p.excerpt || "") + '</p>' +
+            (tags ? '<div class="ins-article-tags">' + tags + '</div>' : '') +
+        '</div>';
+    }
+
     // index.html course card
-    function courseCardHome(c) {
-        var price = '<div class="course-price">' + money(c.price) +
+    function courseCardHome(c) {        var price = '<div class="course-price">' + money(c.price) +
             (c.original_price ? " <span>" + money(c.original_price) + "</span>" : "") + "</div>";
         return '<div class="course-card">' +
             '<div class="course-icon"><i class="bi ' + esc(c.icon || "bi-journal-code") + '"></i></div>' +
@@ -341,7 +370,10 @@
         var qs = [];
         if (container.getAttribute("data-audience")) qs.push("audience=" + encodeURIComponent(container.getAttribute("data-audience")));
         if (container.getAttribute("data-status")) qs.push("status=" + encodeURIComponent(container.getAttribute("data-status")));
-        var endpoint = type === "courses" ? "/api/courses" : type === "programs" ? "/api/programs" : "/api/events";
+        var endpoint = type === "courses" ? "/api/courses"
+            : type === "programs" ? "/api/programs"
+            : type === "posts" ? "/api/posts"
+            : "/api/events";
         var url = api(endpoint + (qs.length ? "?" + qs.join("&") : ""));
 
         getJSON(url).then(function (res) {
@@ -350,6 +382,7 @@
             if (!items.length) return; // keep the designer's sample cards if API empty
             var html = items.map(function (item) {
                 if (type === "courses") return courseCardHome(item);
+                if (type === "posts")   return postCard(item);
                 return tpl === "pg" ? eventCardPg(item) : eventCardHome(item);
             }).join("");
             container.innerHTML = html;

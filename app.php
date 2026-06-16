@@ -113,6 +113,19 @@ $router->post('/admin/messages/{id}/delete', ['TCM\Controllers\Admin\ContentCont
 $router->get('/admin/settings', ['TCM\Controllers\Admin\ContentController', 'settings']);
 $router->post('/admin/settings', ['TCM\Controllers\Admin\ContentController', 'saveSettings']);
 
+// Lead Forms
+$router->get('/admin/lead-forms', ['TCM\Controllers\Admin\LeadFormController', 'index']);
+$router->get('/admin/lead-forms/create', ['TCM\Controllers\Admin\LeadFormController', 'create']);
+$router->post('/admin/lead-forms', ['TCM\Controllers\Admin\LeadFormController', 'store']);
+$router->get('/admin/lead-forms/{id}/edit', ['TCM\Controllers\Admin\LeadFormController', 'edit']);
+$router->post('/admin/lead-forms/{id}', ['TCM\Controllers\Admin\LeadFormController', 'update']);
+$router->post('/admin/lead-forms/{id}/delete', ['TCM\Controllers\Admin\LeadFormController', 'destroy']);
+
+// Public lead form pages
+$router->get('/form/{slug}', ['TCM\Controllers\Admin\LeadFormController', 'show']);
+$router->post('/form/{slug}/submit', ['TCM\Controllers\Admin\LeadFormController', 'submit']);
+$router->get('/form/{slug}/thank-you', ['TCM\Controllers\Admin\LeadFormController', 'thankYou']);
+
 // --------------------------------------------------------------------- //
 // Student dashboard
 // --------------------------------------------------------------------- //

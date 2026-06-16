@@ -44,6 +44,10 @@ final class Event extends Model
 
     public static function seatsLeft(array $event): int
     {
+        // Support both seats_filled column and calculated from total-seats_filled
+        if (isset($event['seats_filled'])) {
+            return max(0, (int) $event['total_seats'] - (int) $event['seats_filled']);
+        }
         return max(0, (int) $event['total_seats'] - (int) $event['seats_filled']);
     }
 

@@ -58,6 +58,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$alreadyInstalled) {
                 $messages[] = 'Demo data seeded.';
             }
         }
+        // Also run the setup_and_seed.sql if it exists (includes seats_filled fix)
+        $fullSeed = __DIR__ . '/database/setup_and_seed.sql';
+        if (is_file($fullSeed) && isset($_POST['seed'])) {
+            $sql = file_get_contents($fullSeed);
+            if ($sql !== false) {
+                $pdo->exec($sql);
+                $messages[] = 'Full seed with fixes applied.';
+            }
+        }
 
         @file_put_contents($lockFile, date('c') . " installed\n");
         $done = true;
